@@ -1,0 +1,22 @@
+---
+title: "Data_script"
+author: "Domenic Hög"
+date: "2024-10-25"
+output: html_document
+---
+
+```{r}
+Corruption <- read.csv("GDL-CorruptionData-1.0.csv")
+```
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(haven)
+library(tidyverse)
+```
+
+```{r}
+test_sub <- subset(Corruption, Corruption$datasource != "Estimated")
+```
+

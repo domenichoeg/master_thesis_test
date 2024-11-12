@@ -1,0 +1,13 @@
+Variable,Category,Dtype,Decimals,RankOrder,Palette,BinLowerBound,BinUpperBound,Label,Shortdescr,Longdescr
+iso_code,System,Str,,,,,,,ISO country code 3 digit,ISO country code 3 digit
+country,System,Str,,,,,,,Country name,Country name
+GDLCODE,System,Str,,,,,,,Region code Global Data Lab,"Iso-code, level (t=total, u=urban, r=rural), regional division (1=most important, 2=secondary division, etc.), region number"
+level,System,Str,,,,,,,Aggregation level,"National, urban or rural, poor or nonpoor, wealth quartiles, sub-national"
+region,System,Str,,,,,,,Sub-national region name,Name of sub-national region
+continent,System,Flt,,,,,,,Continent,"Categories: Africa, America, Asia/Pacific, Europe"
+year,System,Int,0,,,,,,Year of data collection,Year of data collection
+surfacetempyear,Temperature,Flt,,A,temperature,0.00001,30,Surface Temperature (ºC),Yearly Average Surface Temperature (ºC),Yearly Average Surface Temperature (ºC)
+relhumidityyear,Humidity,Flt,,A,humidity,15,85,Relative Humidity (%),Yearly Average Relative Humidity (%),Yearly Average Relative Humidity (%)
+totprecipyear,Precipitation,Flt,,A,precipitation,0.00001,0.075,Total Precipitation (m),Total Yearly Precipitation (m),Total Yearly Precipitation (m)
+co2year,CO2 Emissions,Flt,,A,humidity,0,75000,Total CO2 Emissions (ton),Total Yearly CO2 Emissions (ton),Total Yearly CO2 Emissions (ton)
+pmyear,PM2.5 Emissions,Flt,,A,humidity,0,100,Total PM2.5 Emissions (ton),Total Yearly PM2.5 Emissions (ton),Total Yearly PM2.5 Emissions (ton)
