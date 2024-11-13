@@ -5,6 +5,14 @@ date: "2024-10-25"
 output: html_document
 ---
 
+
+```{r}
+library(dplyr)
+library(haven)
+library(tidyverse)
+```
+
+
 ```{r}
 Corruption <- read.csv("GDL-CorruptionData-1.0.csv")
 ```
@@ -16,6 +24,8 @@ library(haven)
 library(tidyverse)
 ```
 
+
+# Checking for estimated values in the data
 ```{r}
 test_sub <- subset(Corruption, Corruption$datasource != "Estimated")
 ```
