@@ -24,6 +24,8 @@ library(haven)
 library(tidyverse)
 ```
 
+
+# Checking for estimated values in the data
 ```{r}
 test_sub <- subset(Corruption, Corruption$datasource != "Estimated")
 ```
