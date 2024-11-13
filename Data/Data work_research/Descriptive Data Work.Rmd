@@ -30,4 +30,7 @@ library(tidyverse)
 test_sub <- subset(Corruption, Corruption$datasource != "Estimated")
 ```
 
-Test
+```{r}
+flood <- read.csv("gfd_event_stats_20215_13_error_fixed_2.csv")
+```
+
