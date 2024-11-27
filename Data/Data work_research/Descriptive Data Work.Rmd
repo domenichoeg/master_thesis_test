@@ -7,6 +7,14 @@ output: html_document
  Test and changes
 
 ```{r}
+install.packages("Rtools")
+install.packages("dplyr")
+install.packages("haven")
+install.packages("tidyverse")
+```
+
+
+```{r}
 library(dplyr)
 library(haven)
 library(tidyverse)
