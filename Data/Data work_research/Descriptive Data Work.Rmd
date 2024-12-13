@@ -13,11 +13,6 @@ library(haven)
 library(tidyverse)
 ```
 
-
-```{r}
-Corruption <- read.csv("GDL-CorruptionData-1.0.csv")
-```
-
 ```{r}
 library(dplyr)
 library(ggplot2)
@@ -26,12 +21,111 @@ library(tidyverse)
 ```
 
 
+# Corruption data
+## Corruption main data set
+```{r}
+Corruption_comprehensive <- read_sav("Comprehensive Dataset SCI.sav")
+```
+
+## Corruption Global Data Lab
+
+```{r}
+Corruption <- read.csv("GDL-CorruptionData-1.0.csv")
+
+```
+
 # Checking for estimated values in the data, further testing necessary
 ```{r}
 test_sub <- subset(Corruption, Corruption$datasource != "Estimated")
 ```
 
+
+# (Sub)National codings
+```{r}
+subnational <- read_excel("GDL Codes V6.3.xlsx")
+```
+
+
+# Flood data
 ```{r}
 flood <- read.csv("gfd_event_stats_20215_13_error_fixed_2.csv")
 ```
+
+# shapefile 
+```{r}
+install.packages("sf")
+```
+
+```{r}
+library(sf)
+world_admin1 <- read_sf("geoBoundariesCGAZ_ADM1.geojson")
+st_drivers()
+```
+
+```{r}
+# Lade die benötigte Bibliothek
+library(sf)
+
+
+
+# Überprüfe, ob die Shapefile existiert
+if (file.exists("GDL Shapefiles V6.4 large.shp")) {
+  # Lade die Shapefile mithilfe des genauen Dateinamens
+  world_admin1_new <- read_sf("GDL Shapefiles V6.4 large.shp")
+  print("Shapefile erfolgreich geladen!")
+} else {
+  stop("Die Shapefile existiert nicht im angegebenen Verzeichnis.")
+}
+
+# Überprüfe die Daten
+print(world_admin1_new)
+```
+```{r}
+merged_corruption <- left_join(Corruption, world_admin1_new, by = c("GDLCODE" = "gdlcode", "iso_code", "continent"))
+```
+
+
+```{r}
+
+flood_sf <- st_as_sf(flood, coords = c("dfo_centroid_x", "dfo_centroid_y"), crs = st_crs(world_admin1_new))  # Stelle sicher, dass das CRS übereinstimmt
+
+# Überprüfe das sf-Objekt
+print(flood_sf)
+```
+
+```{r}
+# Führe einen räumlichen Join durch, um die Flood-Daten mit den Polygonen zu verbinden
+merged_flood_data <- st_join(flood_sf, world_admin1_new, join = st_within)
+
+# Überprüfe das Ergebnis des Merges
+print(merged_flood_data)
+```
+
+```{r}
+# Überprüfen der Gültigkeit der Geometrien
+validity_check <- st_is_valid(world_admin1_new)
+print(validity_check)
+
+# Wenn ungültige Geometrien vorhanden sind, den Fehler zählen
+invalid_count <- sum(!validity_check)
+cat("Anzahl ungültiger Geometrien:", invalid_count, "\n")
+```
+
+```{r}
+# Repariere ungültige Geometrien
+world_admin1_new_valid <- st_make_valid(world_admin1_new)
+
+# Überprüfe erneut die Gültigkeit
+validity_check_after_repair <- st_is_valid(world_admin1_new_valid)
+cat("Anzahl ungültiger Geometrien nach der Reparatur:", sum(!validity_check_after_repair), "\n")
+```
+```{r}
+# Führe erneut den räumlichen Join durch
+merged_flood_data <- st_join(flood_sf, world_admin1_new_valid, join = st_within)
+
+# Überprüfen des Ergebnisses
+print(merged_flood_data)
+```
+
+
 
